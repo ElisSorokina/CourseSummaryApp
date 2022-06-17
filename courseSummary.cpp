@@ -6,10 +6,14 @@ using namespace std;
 
 int main()
 {
-	int choice, stdGrade;
+	int choice, stdGrade, numOfStud;
+    int sum = 0;
+    int highest = 0;
+    int lowest = 100;
 	string fileName, stdName;
 	string x;
-	int y;
+
+
 	
 	const int PROCESS = 1;
 	const int QUIT = 2;
@@ -48,19 +52,33 @@ int main()
 					cout << '-';
 				cout << endl;
 
-				
-				while (myFile >> x)
-				{
-					myFile.ignore();	
-					getline(myFile, stdName);
-					myFile >> stdGrade;
 
-					
+                myFile.seekg(75);
+				while (!myFile.eof())
+				{
+					myFile.ignore();
+					getline(myFile, stdName);
+                    numOfStud ++;
+					myFile >> stdGrade;
+                    sum = sum + stdGrade;
+                    if (stdGrade > highest)
+                    {
+                        highest= stdGrade;
+                    }
+					if (stdGrade < lowest)
+                    {
+                        lowest = stdGrade;
+                    }
 					cout 
 						<< setw(20) << left << stdName
 						<< setw(5) << left << stdGrade << endl;
-				}
 
+
+				}
+                double average = sum/numOfStud;
+                    cout << "Highest Grade :" << highest<<endl
+                         << "Lowest Grade :" << lowest<<endl
+                         <<"Average Grade :" << average<<endl;
 				// Close file
 				myFile.close();
 			}
